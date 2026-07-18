@@ -1,0 +1,50 @@
+<% layout ("/layouts/boilerplate") %>
+<div class="row">
+    <div class="col-8 offset-2">
+        <br><br>
+<h3>Create A New Listings</h3>
+<form method="POST" action="/listings" novalidate class="needs-validation">
+    <div class="mb-3">
+        <label for="title" class="form-label" >Title</label>
+    <input name="title" placeholder="Enter title" type="text" required  class="form-control" required/>
+    <div class="invalid-feedback">Title Looks Good</div>
+    </div>
+    
+    <div class="mb-3">
+        <label for="description" class="form-label" >Description </label>
+         <input name="description" placeholder="Enter description" type="text" class="form-control" required />
+        <div class="invalid-feedback">Enter A Short Description</div>
+    </div>
+    
+    <div class="mb-3">       
+         <label for="image" class="form-label" >Image URL </label>
+         <input name="imageUrl" placeholder="Enter image URL" type="text" class="form-control"/>
+    </div>
+    
+    <div class="row">
+
+        <div class="mb-3 col-md-4">
+        <label for="price" class="form-label" >Price </label>
+        <input name="price" placeholder="Enter price"  step="0.01" class="form-control" required/>
+        <div class="invalid-feedback">Price Should Be Valid</div>
+
+    </div>
+    
+    <div class="mb-3 col-md-8" >
+        <label for="country" class="form-label" >Country</label>
+        <input name="country" placeholder="Enter country" type="text" class="form-control" required/>
+         <div class="invalid-feedback">Enter The Country Name</div>
+    </div>
+    </div>
+    <br/>
+    <div class="mb-3" >
+        <label for="location" class="form-label" >Location</label>
+        <input name="location" placeholder="Delhi" type="text" class="form-control" required/>
+        <div class="invalid-feedback">Location Should Be Accurate</div>
+    </div>
+    
+    <button class="btn btn-dark add-btn">Create listing</button>
+    <br><br>
+</form>
+</div>
+</div>
