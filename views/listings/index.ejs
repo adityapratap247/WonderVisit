@@ -6,7 +6,7 @@
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <% for (let listing of allListings) { %>
-    <div class="col">
+    <div class="card col listing-card">
         <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none text-dark">
             <div class="card h-100 shadow-sm">
                 <img src="<%= listing.image && listing.image.url ? listing.image.url : 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80' %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
