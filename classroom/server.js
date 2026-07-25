@@ -2,18 +2,19 @@ const express = require("express");
 const app = express();
 const users = require("./routes/user.js")
 const users = require("./routes/post.js")
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 
+app.use(session({secret : "mysupersecretstring" , resave: false, saveUninitialized: true}));
 
-app.get("/",(req,res)=>{
-    res.send("Hi,i am root!");
+app.get("/reqcount",(req,res) =>{
+    req.session.count = 1;
+    res.send(`you sent a request ${req.session.count} times`);
 });
 
-app.use("/users",users);
-app.use("/posts",posts);
-
-app.get("/users",(req,res)=>{
-
-});
+// app.get("/test",(req,res) =>{
+//     res.send("test successful");
+// });
 
 app.listen(3000,()=>{
     console.log("Server is listening to 3000");
