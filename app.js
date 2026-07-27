@@ -9,6 +9,7 @@ const ExpressError = require("./utils/ExpressError.js")
 const {listingSchema,reviewSchema} = require("./schema.js");
 const Review = require("./models/review.js"); 
 const Listing = require("./models/listing.js");
+const session = require("express-session");
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
@@ -23,7 +24,11 @@ app.use(express.static(path.join(__dirname, "/public")))
 
 const Mongo_URL="mongodb://127.0.0.1:27017/WonderVisit";
 
-
+ const sessionOptions = {
+    secret: "mysupersecretcode",
+    resave: false,
+    saveUnitialized: true
+ }
 
 main()
  .then(()=>{
