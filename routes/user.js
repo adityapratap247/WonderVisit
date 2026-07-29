@@ -9,7 +9,10 @@ router.get("/signup",(req,res)=>{
 router.post("/signup", async(req,res)=>{
     let {username,email,password} = req.body;
     const newUser = new User({email,username});
-    User.register();
+    const registerUser = await User.register(newUser, password);
+    console.log(registerUser);
+    req.flash("success","Welcome to WonderVisit");
+    res.redirect("/listings");
 });
 
 module.exports = router;
