@@ -70,14 +70,14 @@ app.use((req,res,next)=>{
     next();
 });
 
-app.get("/demouser", wrapAsync(async(req,res)=>{
-    let fakeUser = new User({
-        email: "student@gmail.com",
-        username:"delta-student"
-    });
-    let registerUser = await User.register(fakeUser,"helloworld");
-    res.send(registerUser);
-}));
+// app.get("/demouser", wrapAsync(async(req,res)=>{
+//     let fakeUser = new User({
+//         email: "student@gmail.com",
+//         username:"delta-student"
+//     });
+//     let registerUser = await User.register(fakeUser,"helloworld");
+//     res.send(registerUser);
+// }));
 
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
