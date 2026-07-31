@@ -7,7 +7,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js")
 const {listingSchema,reviewSchema} = require("../schema.js");
 const Listing = require("../models/listing.js"); 
-const {isLoggedIn} = require("../middleware.js");
+const {isLoggedIn, isOwner} = require("../middleware.js");
 
 const uploadPath = path.join(__dirname, "..", "public", "uploads");
 if (!fs.existsSync(uploadPath)) {
@@ -117,7 +117,7 @@ router.get("/:id", wrapAsync(async(req,res)=>{
 }));
 
 //edit route 
-router.get("/:id/edit", isLoggedIn, wrapAsync(async (req,res)=>{
+router.get("/:id/edit", isLoggedIn,isOwner, wrapAsync(async (req,res)=>{
     let {id}= req.params;
     const listing = await Listing.findById(id);
     if(!listing){
@@ -128,10 +128,9 @@ router.get("/:id/edit", isLoggedIn, wrapAsync(async (req,res)=>{
 }));
 
 //update route
-router.put("/:id",validateListing, isLoggedIn,
+router.put("/:id", validateListing, isLoggedIn, isOwner,
      wrapAsync(async(req,res)=>{
-      
-    let {id} = req.params;
+      let {id} = req.params;
     const { title, description, price, location, country, imageUrl } = req.body;
     const updateData = { title, description, price, location, country };
     if (imageUrl) {
