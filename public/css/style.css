@@ -92,7 +92,15 @@ footer {
 
 .card{
     border: none !important;
-    margin: 2rem;
+    margin: 0;
+}
+
+.listing-card {
+    margin: 2rem auto;
+}
+
+.review-card {
+    margin: 1rem 0;
 }
 
 .card-img-top{
@@ -101,7 +109,7 @@ footer {
     object-fit: cover !important;
 }
 
-.card-body{
+.show-card .card-body{
     padding: 0 !important;
 }
 
@@ -149,14 +157,24 @@ footer {
 }
 
 .show-img{
-    height: 30vh ;
+    width: 100%;
+    max-height: 40vh;
+    height: 100%;
+    object-fit: cover !important;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
 }
 
 .btns{
     display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .show-card{
     padding-left: 0;
-    padding-right: 0  ;
+    padding-right: 0;
+    border-radius: 1rem;
+    overflow: hidden;
 }
