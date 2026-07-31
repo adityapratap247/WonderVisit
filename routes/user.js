@@ -8,20 +8,19 @@ router.get("/signup",(req,res)=>{
     res.render("users/signup.ejs");
 });
 
-router.post("/signup", async(req,res)=>{
+router.post("/signup", async(req,res,next)=>{
     try{
         let {username,email,password} = req.body;
-    const newUser = new User({email,username});
-    const registerUser = await User.register(newUser, password);
-    console.log(registerUser);
-    req.login(registerUser),(err) => {
-        if(err){
-            return next (err);
-        }
-        req.flash("success","Welcome to WonderVisit");
-        res.redirect("/listings");
-    };
-    
+        const newUser = new User({email,username});
+        const registerUser = await User.register(newUser, password);
+        console.log(registerUser);
+        req.login(registerUser, (err) => {
+            if(err){
+                return next(err);
+            }
+            req.flash("success","Welcome to WonderVisit");
+            res.redirect("/listings");
+        });
     }catch(e){
         req.flash("error",e.message);
         res.redirect("/signup");

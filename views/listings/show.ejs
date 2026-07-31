@@ -6,23 +6,18 @@
 <div class="card col-6 offset-3 show-card listing-card">
   <img src="<%= listing.image && listing.image.url ? listing.image.url : (typeof listing.image === 'string' && listing.image ? listing.image : 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80') %>" class="card-img-top show-img" alt="listing_image">
   <div class="card-body">
-    <p class="card-text"><i><%= listing.owner.username %></i></p>
-
-     <p class="card-text"><%= listing.description %> </p>
-     <p class="card-text"></p><%= listing.price.toLocaleString("en-IN") %></p>
-     <p class="card-text"></p><%= listing.location %></p>
-     <p class="card-text"></p><%= listing.country %> </p>
-
-     
-    </p>
+    <p class="card-text"><strong>Owner by</strong> <%= listing.owner && listing.owner.username ? listing.owner.username : "Unknown" %></p>
+    <p class="card-text"><%= listing.description %></p>
+    <p class="card-text"><strong>Price:</strong> <%= listing.price.toLocaleString("en-IN") %></p>
+    <p class="card-text"><strong>Location:</strong> <%= listing.location %></p>
+    <p class="card-text"><strong>Country:</strong> <%= listing.country %></p>
   </div>
 </div>
-
-
 
 <!-- <p><a href="/listings">Back to listings</a></p> -->
 <br>
 
+<% if(currUser && currUser._id.equals(listing.owner._id)){ %>
 <div class="btns">
 <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn"> Edit</a>
 
@@ -30,6 +25,7 @@
     <button class="btn btn-dark offset-5">Delete</button>
 </form>
 </div> 
+<% } %>
 
 <div class="col-8 offset-3 mb-3">
   <hr>
