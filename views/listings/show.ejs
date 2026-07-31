@@ -27,6 +27,7 @@
 </div> 
 <% } %>
 
+<% if(currUser) { %>
 <div class="col-8 offset-3 mb-3">
   <hr>
   <h4>Leave A Review</h4>
@@ -45,6 +46,8 @@
     </div>
     <button class="btn btn-outline-dark">Submit</button>
   </form>
+
+<% } %>
 
   <hr>
   <p><b>All Reviews</b></p>
