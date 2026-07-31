@@ -1,12 +1,27 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js")
 const {listingSchema,reviewSchema} = require("../schema.js");
 const Listing = require("../models/listing.js"); 
 const {isLoggedIn} = require("../middleware.js");
 
+const uploadPath = path.join(__dirname, "..", "public", "uploads");
+if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+}
 
+const storage = multer.diskStorage({
+    destination: uploadPath,
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    }
+});
+
+const upload = multer({ storage });
 
 const validateListing = (req,res,next)=>{
     let {error } = listingSchema.validate(req.body);
@@ -66,15 +81,20 @@ router.get("/new", isLoggedIn , (req,res)=>{
 });
 
 //create route
-router.post("/", isLoggedIn,
+router.post("/", isLoggedIn, upload.single("image"),
     validateListing,
     wrapAsync(async (req, res, next) => {
         
         const { title, description, price, location, country, imageUrl } = req.body;
         const listingData = { title, description, price, location, country };
-        listingData.image = { url: imageUrl || getImageUrlForTitle(title) };
+        if (req.file) {
+            listingData.image = { url: `/uploads/${req.file.filename}` };
+        } else {
+            listingData.image = { url: imageUrl || getImageUrlForTitle(title) };
+        }
 
         const listing = new Listing(listingData);
+        listing.owner = req.user._id;
         await listing.save();
         req.flash("success", "new listing created");
         res.redirect(`/listings/${listing._id}`);
@@ -85,11 +105,14 @@ router.post("/", isLoggedIn,
 //show route
 router.get("/:id", wrapAsync(async(req,res)=>{
     let {id} = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id)
+      .populate("reviews")
+      .populate("owner");
     if(!listing){
         req.flash("error","Listing you requested for does not exist");
         return res.redirect("/listings");
-    }
+    };
+    console.log(listing);
     res.render("listings/show.ejs",{listing}); 
 }));
 
