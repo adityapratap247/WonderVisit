@@ -8,6 +8,7 @@ const ExpressError = require("../utils/ExpressError.js")
 const {listingSchema,reviewSchema} = require("../schema.js");
 const Listing = require("../models/listing.js"); 
 const {isLoggedIn, isOwner} = require("../middleware.js");
+const listingController = require("../controllers/listings.js");
 
 const uploadPath = path.join(__dirname, "..", "public", "uploads");
 if (!fs.existsSync(uploadPath)) {
@@ -70,10 +71,7 @@ function normalizeListingImage(listing) {
 }
 
 //index route
-router.get("/",async(req,res)=>{
-    const allListings = (await Listing.find({})).map(normalizeListingImage);
-    res.render("listings/index", { allListings });
-    });
+router.get("/",wrapAsync(listingController.index));
 
 //new route
 router.get("/new", isLoggedIn , (req,res)=>{
