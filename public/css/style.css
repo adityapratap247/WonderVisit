@@ -117,8 +117,12 @@ footer {
 }
 
 .review-list {
-    max-width: 980px;
+    max-width: 760px;
     margin: 0 auto;
+}
+
+.review-card {
+    max-width: 100%;
 }
 
 .review-card .review-top {
