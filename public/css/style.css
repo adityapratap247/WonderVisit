@@ -100,7 +100,55 @@ footer {
 }
 
 .review-card {
-    margin: 1rem 0;
+    margin: 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+.review-card .card-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 240px;
+    padding: 1.5rem;
+}
+
+.review-list {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.review-card .review-top {
+    flex: 1;
+}
+
+.review-card .card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.review-card .card-text {
+    color: #334155;
+}
+
+.review-card .review-rating {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+.review-card .review-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.review-card .btn {
+    width: fit-content;
 }
 
 .card-img-top{
