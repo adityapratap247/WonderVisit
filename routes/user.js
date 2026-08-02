@@ -5,13 +5,13 @@ const passport = require("passport");
 const wrapAsync = require("../utils/wrapAsync.js")
 const userController = require("../controllers/users.js");
 
-router.get("/signup",userController.renderSignupForm);
+router.route("/signup")
+    .get(userController.renderSignupForm)
+    .post(wrapAsync(userController.signup))
 
-router.post("/signup",wrapAsync(userController.signup) );
-
-router.get("/login",userController.renderLoginForm);
-
-router.post("/login", (req, res, next) => {
+router.route("/login")
+    .get(userController.renderLoginForm)
+    .post((req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
         if (err) {
             return next(err);
