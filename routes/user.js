@@ -11,8 +11,25 @@ router.post("/signup",wrapAsync(userController.signup) );
 
 router.get("/login",userController.renderLoginForm);
 
-router.post("/login", passport.authenticate("local",{failureRedirect: '/login', failureFlash:true}),
-    wrapAsync(userController.login));
+router.post("/login", (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            req.flash("error", info?.message || "Invalid username or password");
+            return res.redirect("/login");
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            req.flash("success", "Welcome back to WonderVisit !");
+            let redirectUrl = res.locals.redirectUrl || "/listings";
+            return res.redirect(redirectUrl);
+        });
+    })(req, res, next);
+});
 
 router.get("/logout",userController.logout);
 

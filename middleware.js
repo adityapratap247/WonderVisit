@@ -39,10 +39,16 @@ module.exports.validateReview = (req,res,next) => {
 };
 module.exports.isReviewAuthor = async(req,res,next) =>{
     let {id, reviewId} = req.params;
+    if (!reviewId) {
+        req.flash("error", "Invalid review request");
+        return res.redirect(`/listings/${id}`);
+    }
     const review = await Review.findById(reviewId);
-    if (!review || !review.author || !review.author.equals(res.locals.currUser._id)) {
+    const authorId = review?.author?._id ? review.author._id : review?.author;
+    if (!review || !authorId || authorId.toString() !== res.locals.currUser._id.toString()) {
         req.flash("error", "You are not authorized to delete this review");
         return res.redirect(`/listings/${id}`);
     }
     next();
 };
+
