@@ -30,7 +30,6 @@ router.route("/login")
         });
     })(req, res, next);
 });
-
 router.get("/logout",userController.logout);
 
 module.exports = router;
