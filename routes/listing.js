@@ -37,10 +37,14 @@ const validateListing = (req,res,next)=>{
 router.route("/")
     .get(wrapAsync(listingController.index))
     .post(isLoggedIn, upload.single("image"),
-    validateListing,
-    wrapAsync(listingController.createListing))
+        validateListing,
+        wrapAsync(listingController.createListing))
+    // .post(upload.single('listing[image]'),(req,res)=>{
+    //     res.send(req.file);
+    // });
 
-    //new route
+
+//new route
 router.get("/new", isLoggedIn , listingController.renderNewForm);
 
 router.route("/:id")
