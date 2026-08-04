@@ -63,11 +63,14 @@ module.exports.showListing = (async(req,res)=>{
 });
 
 module.exports.createListing= async (req, res, next) => {
-        
         const { title, description, price, location, country, imageUrl } = req.body;
         const listingData = { title, description, price, location, country };
         if (req.file) {
-            listingData.image = { url: `/uploads/${req.file.filename}` };
+            const fileUrl = req.file.path || req.file.secure_url || req.file.url;
+            listingData.image = {
+                filename: req.file.filename || req.file.public_id,
+                url: fileUrl || getImageUrlForTitle(title),
+            };
         } else {
             listingData.image = { url: imageUrl || getImageUrlForTitle(title) };
         }

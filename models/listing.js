@@ -12,8 +12,8 @@ const listingSchema = new Schema({
         
     },
     image: {
-        filename: { type: String, default: "" },
-        url: { type: String, default: "https://wallpaperaccess.com/4k-ultra-high-resolution-nature" }
+        url: String,
+        filename: String,
     },
     price:Number,
     location:String,
