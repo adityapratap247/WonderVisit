@@ -9,20 +9,22 @@ const {listingSchema,reviewSchema} = require("../schema.js");
 const Listing = require("../models/listing.js"); 
 const {isLoggedIn, isOwner} = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
+const {storage} = require("../cloudConfig.js");
+const upload = multer({storage});
 
 const uploadPath = path.join(__dirname, "..", "public", "uploads");
 if (!fs.existsSync(uploadPath)) {
     fs.mkdirSync(uploadPath, { recursive: true });
 }
 
-const storage = multer.diskStorage({
-    destination: uploadPath,
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
-});
+// const storage = multer.diskStorage({
+//     destination: uploadPath,
+//     filename: (req, file, cb) => {
+//         cb(null, `${Date.now()}-${file.originalname}`);
+//     }
+// });
 
-const upload = multer({ storage });
+// const upload = multer({ storage });
 
 const validateListing = (req,res,next)=>{
     let {error } = listingSchema.validate(req.body);
