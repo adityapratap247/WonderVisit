@@ -94,21 +94,22 @@ module.exports.renderEditForm =async (req,res)=>{
 
 module.exports.updateListing = async(req,res)=>{
       let {id} = req.params;
-    const { title, description, price, location, country, imageUrl } = req.body;
+    const { title, description, price, location, country, imageUrl } = req.body || {};
     const updateData = { title, description, price, location, country };
     if (imageUrl) {
         updateData.image = { url: imageUrl };
     }
-    if(typeof req.file !== "undefined"){
-        let listing = await Listing.findByIdAndUpdate(id,{...req.body.listing});
-    let url = req.file.path;
-    let filename= req.file.filename;
-    listing.image= {url, filename};
+    if (req.file) {
+        updateData.image = {
+            url: req.file.path || req.file.secure_url || req.file.url,
+            filename: req.file.filename || req.file.public_id,
+        };
+    }
+
+    await Listing.findByIdAndUpdate(id, updateData);
     req.flash("success", "Listing Updated!");
     res.redirect(`/listings/${id}`);
-    };
 
-    
 };
 
 module.exports.destroyListing = async (req,res)=>{
