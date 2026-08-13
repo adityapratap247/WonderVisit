@@ -217,6 +217,17 @@ footer {
     border-top-right-radius: 1rem;
 }
 
+.edit-preview-img {
+    display: block;
+    width: 280px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+    background: #f8fafc;
+    margin-top: 0.5rem;
+}
+
 .btns{
     display: flex;
     gap: 1rem;

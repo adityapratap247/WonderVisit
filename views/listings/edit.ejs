@@ -32,6 +32,11 @@
     </div>
     
     <div class="mb-3">
+        Original Listing Image <br>
+        <img src="<%= listing.image.url %>" class="edit-preview-img" alt="Current listing image">
+    </div>
+
+    <div class="mb-3">
         <label for="image" class="form-label">Upload New Image:</label>
         <input type="file" id="image" name="image" value="<%= listing.image.url %>" class="form-control">
     </div><br>
