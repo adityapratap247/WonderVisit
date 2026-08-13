@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const geocodeLocation = require("../utils/geocode.js");
 
 const fallbackImageUrl = "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80";
 
@@ -65,6 +66,14 @@ module.exports.showListing = (async(req,res)=>{
 module.exports.createListing= async (req, res, next) => {
         const { title, description, price, location, country, imageUrl } = req.body;
         const listingData = { title, description, price, location, country };
+
+        try {
+            listingData.geometry = await geocodeLocation(location);
+        } catch (err) {
+            req.flash("error", "Please enter a valid location so the map can place your listing.");
+            return res.redirect("/listings/new");
+        }
+
         if (req.file) {
             const fileUrl = req.file.path || req.file.secure_url || req.file.url;
             listingData.image = {
@@ -98,6 +107,14 @@ module.exports.updateListing = async(req,res)=>{
       let {id} = req.params;
     const { title, description, price, location, country, imageUrl } = req.body || {};
     const updateData = { title, description, price, location, country };
+
+    try {
+        updateData.geometry = await geocodeLocation(location);
+    } catch (err) {
+        req.flash("error", "Please enter a valid location so the map can place your listing.");
+        return res.redirect(`/listings/${id}/edit`);
+    }
+
     if (imageUrl) {
         updateData.image = { url: imageUrl };
     }

@@ -61,6 +61,32 @@
 </div>
 <% } %>
 
+<% if (listing.geometry && listing.geometry.coordinates) { %>
+<div class="row justify-content-center mt-4">
+  <div class="col-lg-8">
+    <hr>
+    <h4>Where you'll be</h4>
+    <div id="map" style="height: 400px;"></div>
+  </div>
+</div>
+
+<script>
+    const listingData = <%- JSON.stringify(listing) %>;
+    const coords = [...listingData.geometry.coordinates].reverse(); // GeoJSON [lng,lat] → Leaflet [lat,lng]
+
+    var map = L.map('map').setView(coords, 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    L.marker(coords).addTo(map)
+        .bindPopup(`<b><%= listing.title %></b><br><%= listing.location %>`)
+        .openPopup();
+</script>
+<% } %>
+
 <div class="row justify-content-center">
   <div class="col-lg-8">
     <hr>

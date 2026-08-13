@@ -241,3 +241,5 @@ footer {
     border-radius: 1rem;
     overflow: hidden;
 }
+
+#map { height: 180px; }
