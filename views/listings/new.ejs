@@ -25,8 +25,21 @@
          <input name="image" type="file" accept="image/*" class="form-control" />
     </div>
     
-    <div class="row">
+    <div class="mb-3 col-md-8" >
+        <label for="category" class="form-label" >Category</label>
+        <select name="category" id="category" class="form-select" required>
+        <option value="" disabled selected>Select a category</option>
+        <option value="Trending">Trending</option>
+        <option value="Rooms">Rooms</option>
+        <option value="Mountains">Mountains</option>
+        <option value="Beaches">Beaches</option>
+        <option value="Resorts">Resorts</option>
+        <option value="Lodges">Lodges</option>
+    </select>
+         <div class="invalid-feedback">Enter Location Type</div>
+    </div>
 
+    <div class="row">
         <div class="mb-3 col-md-4">
         <label for="price" class="form-label" >Price </label>
         <input name="price" placeholder="Enter price"  step="0.01" class="form-control" required/>

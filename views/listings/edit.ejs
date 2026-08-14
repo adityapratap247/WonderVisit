@@ -19,6 +19,19 @@
         <label for="location" class="form-label">Location:</label>
         <input type="text" id="location" name="location" value="<%= listing.location %>" required class="form-control" required>
     </div>
+
+    <div class="mb-3 col-md-8" >
+        <label for="category" class="form-label" >Category</label>
+        <select name="category" id="category" class="form-select" required>
+        <option value="" disabled selected>Select a category</option>
+        <option value="Rooms">Rooms</option>
+        <option value="Mountains">Mountains</option>
+        <option value="Beaches">Beaches</option>
+        <option value="Resorts">Resorts</option>
+        <option value="Lodges">Lodges</option>
+    </select>
+         <div class="invalid-feedback">Enter Location Type</div>
+    </div>
     
     <div class="row">
         <div class="mb-3 col-md-4">

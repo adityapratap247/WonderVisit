@@ -23,33 +23,49 @@
         color: #2563EB;
         transform: translateY(-1px);
     }
+    .filter-link {
+    text-decoration: none;
+    color: inherit;
+}
 </style>
 
 <div id="filters">
-    <div class="filter">
-    <div><i class="fa-solid fa-fire"></i></div>
-    <p>Trending</p>
-    </div>
-    <div class="filter">
-        <div><i class="fa-solid fa-bed"></i></div>
-    <p>Rooms</p>
-    </div>
-    <div class="filter">
-    <div><i class="fa-solid fa-mountain"></i></div>
-    <p>Mountains</p>
-    </div>
-    <div class="filter">
-        <div><i class="fa-solid fa-umbrella-beach"></i></div>
-    <p>Beaches</p>
-    </div>
-    <div class="filter">
-    <div><i class="fa-solid fa-hotel"></i></div>
-    <p>Resorts</p>
-    </div>
-    <div class="filter">
-    <div><i class="fa-solid fa-tent"></i></div>
-    <p>Lodges</p>
-    </div>
+    <a href="/listings?category=trending" class="filter-link">
+        <div class="filter">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </div>
+    </a>
+    <a href="/listings?category=Rooms" class="filter-link">
+        <div class="filter">
+            <div><i class="fa-solid fa-bed"></i></div>
+            <p>Rooms</p>
+        </div>
+    </a>
+    <a href="/listings?category=Mountains" class="filter-link">
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+    </a>
+    <a href="/listings?category=Beaches" class="filter-link">
+        <div class="filter">
+            <div><i class="fa-solid fa-umbrella-beach"></i></div>
+            <p>Beaches</p>
+        </div>
+    </a>
+    <a href="/listings?category=Resorts" class="filter-link">
+        <div class="filter">
+            <div><i class="fa-solid fa-hotel"></i></div>
+            <p>Resorts</p>
+        </div>
+    </a>
+    <a href="/listings?category=Lodges" class="filter-link">
+        <div class="filter">
+            <div><i class="fa-solid fa-tent"></i></div>
+            <p>Lodges</p>
+        </div>
+    </a>
 </div>
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">

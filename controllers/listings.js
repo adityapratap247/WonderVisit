@@ -39,8 +39,13 @@ function normalizeListingImage(listing) {
 }
 
 module.exports.index = async(req,res) => {
-    const allListings = (await Listing.find({})).map(normalizeListingImage);
-    res.render("listings/index", { allListings });
+    const { category } = req.query;
+    let filter = {};
+    if (category) {
+        filter.category = category;
+    }
+    const allListings = (await Listing.find(filter)).map(normalizeListingImage);
+    res.render("listings/index", { allListings,category });
     };
 
 module.exports.renderNewForm = (req,res)=>{
@@ -65,8 +70,8 @@ module.exports.showListing = (async(req,res)=>{
 });
 
 module.exports.createListing= async (req, res, next) => {
-        const { title, description, price, location, country, imageUrl } = req.body;
-        const listingData = { title, description, price, location, country };
+        const { title, description, price, location, country, category, imageUrl } = req.body;
+        const listingData = { title, description, price, location, country, category };
 
         try {
             listingData.geometry = await geocodeLocation(location);
@@ -92,6 +97,7 @@ module.exports.createListing= async (req, res, next) => {
         res.redirect(`/listings/${listing._id}`);
     };
 
+
 module.exports.renderEditForm =async (req,res)=>{
     let {id}= req.params;
     const listing = await Listing.findById(id);
@@ -105,9 +111,9 @@ module.exports.renderEditForm =async (req,res)=>{
 };
 
 module.exports.updateListing = async(req,res)=>{
-      let {id} = req.params;
-    const { title, description, price, location, country, imageUrl } = req.body || {};
-    const updateData = { title, description, price, location, country };
+    let {id} = req.params;
+    const { title, description, price, location, country, category, imageUrl } = req.body || {};
+    const updateData = { title, description, price, location, country, category };
 
     try {
         updateData.geometry = await geocodeLocation(location);
@@ -129,7 +135,6 @@ module.exports.updateListing = async(req,res)=>{
     await Listing.findByIdAndUpdate(id, updateData);
     req.flash("success", "Listing Updated!");
     res.redirect(`/listings/${id}`);
-
 };
 
 module.exports.destroyListing = async (req,res)=>{
