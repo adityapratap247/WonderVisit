@@ -1,10 +1,58 @@
 <% layout ("/layouts/boilerplate") %> 
-<h3>All Listings</h3>
+<!-- <h3>All Listings</h3> -->
 <!-- <form method="Get" action="/listings/new">
     <button>Create New listing</button>
 </form> -->
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+<style>
+    #filters {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .filter {
+        text-align: center;
+        margin-right: 1.5rem;
+        margin-top: 1rem;
+        opacity: 0.7;
+        color: #222222;
+        cursor: pointer;
+        transition: opacity 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    .filter:hover {
+        opacity: 1;
+        color: #2563EB;
+        transform: translateY(-1px);
+    }
+</style>
+
+<div id="filters">
+    <div class="filter">
+    <div><i class="fa-solid fa-fire"></i></div>
+    <p>Trending</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-bed"></i></div>
+    <p>Rooms</p>
+    </div>
+    <div class="filter">
+    <div><i class="fa-solid fa-mountain"></i></div>
+    <p>Mountains</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-umbrella-beach"></i></div>
+    <p>Beaches</p>
+    </div>
+    <div class="filter">
+    <div><i class="fa-solid fa-hotel"></i></div>
+    <p>Resorts</p>
+    </div>
+    <div class="filter">
+    <div><i class="fa-solid fa-tent"></i></div>
+    <p>Lodges</p>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
     <% for (let listing of allListings) { %>
     <div class="col">
         <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none text-dark">
