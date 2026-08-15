@@ -1,7 +1,11 @@
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 if(process.env.NODE_ENV != "production"){
     require('dotenv').config();
 };
-  
+
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -14,6 +18,7 @@ const {listingSchema,reviewSchema} = require("./schema.js");
 const Review = require("./models/review.js"); 
 const Listing = require("./models/listing.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -32,9 +37,23 @@ app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname, "/public")))  
 
-const Mongo_URL="mongodb://127.0.0.1:27017/WonderVisit";
+// const Mongo_URL="mongodb://127.0.0.1:27017/WonderVisit";
+const dbUrl = process.env.ATLASDB_URL;
 
- const sessionOptions = {
+const Store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto:{
+        secret: "mysupersecretcode"
+    },
+    touchAfter: 24 * 3600,
+});
+
+Store.on("error",(err)=>{
+    console.log("Error in Mongo Session Store",err);
+});
+
+const sessionOptions = {
+    store: Store,
     secret: "mysupersecretcode",
     resave: false,
     saveUninitialized: true,
@@ -52,7 +71,7 @@ main()
     console.log(err);
  });
 async function main() {
-    await mongoose.connect(Mongo_URL);
+    await mongoose.connect(dbUrl);
 };
 
 // app.get("/",(req,res)=>{
