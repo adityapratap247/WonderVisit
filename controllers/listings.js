@@ -39,14 +39,26 @@ function normalizeListingImage(listing) {
 }
 
 module.exports.index = async(req,res) => {
-    const { category } = req.query;
+    const { category, search } = req.query;
     let filter = {};
-    if (category) {
+
+    if (category === "trending") {
+        filter.views = { $gt: 5 };
+    } else if (category) {
         filter.category = category;
     }
+
+    if (search) {
+        filter.$or = [
+            { title: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } },
+            { country: { $regex: search, $options: "i" } }
+        ];
+    }
+
     const allListings = (await Listing.find(filter)).map(normalizeListingImage);
-    res.render("listings/index", { allListings,category });
-    };
+    res.render("listings/index", { allListings, category, search });
+};
 
 module.exports.renderNewForm = (req,res)=>{
     res.render("listings/new.ejs");
