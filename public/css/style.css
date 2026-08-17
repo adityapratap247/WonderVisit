@@ -242,4 +242,126 @@ footer {
     overflow: hidden;
 }
 
-#map { height: 180px; }
+/* ===== RESPONSIVE ADDITIONS ===== */
+
+/* Navbar mobile stacking */
+@media (max-width: 767.98px) {
+  .navbar-nav {
+    width: 100%;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  .navbar-nav.ms-auto {
+    margin-left: 0 !important;
+  }
+  .navbar-nav .nav-link {
+    padding: 0.5rem 0;
+  }
+}
+
+/* Search bar - stack input and button on small screens */
+@media (max-width: 575.98px) {
+  form[role="search"] {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  .search-inp {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+  .search-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Filter icons row (Trending/Rooms/Beaches etc.) */
+@media (max-width: 575.98px) {
+  #filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    gap: 1rem;
+  }
+  #filters::-webkit-scrollbar {
+    display: none;
+  }
+  .filter {
+    flex: 0 0 auto;
+    margin-right: 0 !important;
+  }
+}
+
+/* Map height scaling */
+#map {
+  height: 400px;
+  width: 100%;
+}
+@media (max-width: 767.98px) {
+  #map {
+    height: 280px;
+  }
+}
+@media (max-width: 575.98px) {
+  #map {
+    height: 220px;
+  }
+}
+
+/* Listing show image */
+@media (max-width: 575.98px) {
+  .show-img {
+    max-height: 30vh;
+  }
+}
+
+/* Edit preview image - shrink on small screens */
+@media (max-width: 575.98px) {
+  .edit-preview-img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+  }
+}
+
+/* Buttons row on listing show page */
+@media (max-width: 575.98px) {
+  .btns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btns .btn {
+    width: 100%;
+  }
+}
+
+/* Review cards - tighten padding on mobile */
+@media (max-width: 575.98px) {
+  .review-card .card-body {
+    padding: 1rem;
+    min-height: auto;
+  }
+  .review-list {
+    padding: 0 0.5rem;
+  }
+}
+
+/* Footer - stack info sections on small screens */
+@media (max-width: 575.98px) {
+  .f-info-links,
+  .f-info-socials {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+/* Forms (new/edit listing) - ensure full width inputs on mobile */
+@media (max-width: 575.98px) {
+  .col-md-8,
+  .col-md-4 {
+    width: 100%;
+  }
+}
